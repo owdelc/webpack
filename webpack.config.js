@@ -6,23 +6,52 @@ const {CleanWebpackPlugin} = require("clean-webpack-plugin");
 module.exports = {
   mode: "development",
   devtool: false,
-  entry: {"./src/JS/burger.js",
-    page: " ./index.html"
+  entry: {
+    index:"./src/JS/burger.js"},
   output: {
-    filename: "main.js",
-    path: path.resolve(__dirname, "dist"),}
+    path: path.resolve("build"),
+    filename: "newindex.js",}
 
-};
+,
 plugins: [new CleanWebpackPlugin(),
-  new MiniCssExtractPlugin()
+  new MiniCssExtractPlugin(),
   new HtmlWebpackPlugin({
-    template: "./index.html"
+    filename: "index.html",
+    template: "./index.html",
+    chunks: ["page"]
+  }),
+  new HtmlWebpackPlugin({
+    filename: "historia2.html",
+    template: "./src/historia2.html",
+    chunks: ["page"]
+  }),
+  new HtmlWebpackPlugin({
+    filename: "historia3.html",
+    template: "./src/historia3.html",
+    chunks: ["page"]
+  }),
+  new HtmlWebpackPlugin({
+    filename: "historia4.html",
+    template: "./src/histori4.html",
+  }),
+  new HtmlWebpackPlugin({
+    filename: "historia5.html",
+    template: "./src/historia5.html",
+    chunks: ["page"]
   })],
 module: {
   rules: [
-    {
-      test: /\.css/,
-      use: [MiniCssExtractPlugin.loader,"css-loader"],
-    },
-  ],
-};
+      { test: /\.css$/i, use: ["style-loader", "css-loader"] },
+      {
+        test: /\.s[ac]ss$/i,
+        use: [
+          // Creates `style` nodes from JS strings
+          MiniCssExtractPlugin.loader,
+          // Translates CSS into CommonJS
+          "css-loader",
+          // Compiles Sass to CSS
+          "sass-loader",
+        ],
+      },
+    ],
+  },};
