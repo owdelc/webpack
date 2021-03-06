@@ -17,7 +17,7 @@ plugins: [new CleanWebpackPlugin(),
   new MiniCssExtractPlugin(),
   new HtmlWebpackPlugin({
     filename: "index.html",
-    template: "./index.html",
+    template: "./src/index.html",
     chunks: ["page"]
   }),
   new HtmlWebpackPlugin({
@@ -53,5 +53,22 @@ module: {
           "sass-loader",
         ],
       },
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        use: [
+          {
+            loader: "file-loader",
+            options: {
+              name: "[path][name].[ext]",
+            },
+          },
+        ],
+      },
+      {
+        test: /\.js$/,
+        loader: "babel-loader",
+        exclude: /(node_modules)/,
+      },
     ],
-  },};
+  },
+};
